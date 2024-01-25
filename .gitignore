@@ -2,3 +2,6 @@
 /tests/storage/
 /vendor/
 .idea
+.php-cs-fixer.cache
+/var/
+
