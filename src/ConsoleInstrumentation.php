@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace OpenTelemetry\Contrib\Instrumentation\Laravel;
 
 use Illuminate\Console\Command;
-use Illuminate\Contracts\Console\Kernel;
 use OpenTelemetry\API\Instrumentation\CachedInstrumentation;
 use OpenTelemetry\API\Trace\Span;
-use OpenTelemetry\API\Trace\SpanKind;
 use OpenTelemetry\API\Trace\StatusCode;
 use OpenTelemetry\Context\Context;
 use function OpenTelemetry\Instrumentation\hook;

@@ -27,11 +27,8 @@ class ConsoleInstrumentationTest extends TestCase
          *
          * @see \Illuminate\Foundation\Console\OptimizeClearCommand::handle() for the additional commands/spans.
          */
-        $count = 8;
+        $count = 7;
         $this->assertCount($count, $this->storage);
-
-        $span = $this->storage[--$count];
-        $this->assertSame('Artisan handler', $span->getName());
 
         $span = $this->storage[--$count];
         $this->assertSame('Command optimize:clear', $span->getName());
