@@ -10,6 +10,7 @@ use Illuminate\Log\LogManager;
 use OpenTelemetry\API\Instrumentation\CachedInstrumentation;
 use OpenTelemetry\API\Logs\LogRecord;
 use OpenTelemetry\API\Logs\Map\Psr3;
+use Monolog\Logger as MonologLogger;
 
 class LogWatcher extends Watcher
 {
@@ -37,8 +38,11 @@ class LogWatcher extends Watcher
         $underlyingLogger = $this->logger->getLogger();
 
         /** @phan-suppress-next-line PhanUndeclaredMethod */
-        if (method_exists($underlyingLogger, 'isHandling') && !$underlyingLogger->isHandling($log->level)) {
-            return;
+        if (method_exists($underlyingLogger, 'isHandling')) {
+            $level = is_string($log->level) ? MonologLogger::toMonologLevel($log->level) : $log->level;
+            if (!$underlyingLogger->isHandling($level)) {
+                return;
+            }
         }
 
         $attributes = [
