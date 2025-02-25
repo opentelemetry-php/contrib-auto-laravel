@@ -64,6 +64,11 @@ class Serializer
         // Serialize the allowed number of arguments
         $paramsToSerialize = ($paramsToSerializeNum >= 0) ? array_slice($params, 0, $paramsToSerializeNum) : $params;
 
+        // Map each parameter to a string representation
+        $paramsToSerialize = array_map(function ($param) {
+            return is_array($param) ? json_encode($param) : (string)$param;
+        }, $paramsToSerialize);
+        
         // If there are more arguments than serialized, add a placeholder
         if (count($params) > count($paramsToSerialize)) {
             $paramsToSerialize[] = '[' . (count($params) - $paramsToSerializeNum) . ' other arguments]';
